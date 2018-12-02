@@ -1,0 +1,12 @@
+
+<table border="1">
+	<tr>
+    <th>NO.</th>
+       <th>id_riwayat.</th>
+        <th>id_pengguna</th>
+		<th>id_tagihan</th>		
+		<th>jlh_debit</th>
+		<th>jlh_tagihan</th>
+		<th>tanggal</th>
+	</tr>
+	</table>
