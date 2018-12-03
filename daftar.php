@@ -11,7 +11,8 @@
  session_start(); 
 include "koneksi.php";
 
-  $sql = "INSERT INTO tbl_pengguna (username, jns_pengguna, password) VALUES ('".$_POST['username']."', '".$_POST['jns_pengguna']."','".md5($_POST['password'])."')";
+  $sql = "INSERT INTO tbl_pengguna (username, jns_pengguna, no_rumah, no_hp, password)
+   VALUES ('".$_POST['username']."', '".$_POST['jns_pengguna']."' ,'".$_POST['no_rumah']."' ,'".$_POST['no_hp']."', '".md5($_POST['password'])."')";
    //$stmt = $db->prepare($sql);
   // $saved = $stmt->execute($params);
   $result = mysqli_query($con, $sql);
@@ -20,7 +21,7 @@ include "koneksi.php";
   if($check)
     header('Location:daftar.php');
   else
-    echo 'Gagal Tambah Pengguna';
+    //echo 'Gagal Tambah Pengguna';
 
 //$username = $_POST['username'];
 //$password = md5($_POST['password']);
@@ -50,6 +51,14 @@ include "koneksi.php";
   <div class="form-group">
     <label for="exampleInputPassword1" class="text-uppercase">Category</label>
     <input  type="text" name="jns_pengguna" class="form-control" required>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1" class="text-uppercase">No Blok Rumah</label>
+    <input  type="text" name="no_rumah" class="form-control" required>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1" class="text-uppercase">No Hp</label>
+    <input  type="text" name="no_hp" class="form-control" required>
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1" class="text-uppercase">Password</label>

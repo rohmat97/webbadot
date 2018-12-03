@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> Riwayat</title>
+</head>
+<body>
+	<h1>Tabel Riwayat Transaksi</h1>
+	<h4>table 1</h4>
+	<div class="table1">
+		<?php
+				
+						$sql = 'SELECT id_pengguna, jlh_debit, jlh_tagihan, tanggal FROM tbl_riwayat';
+						$query = mysqli_query($con, $sql);
+
+						if (!$query) {
+							die ('SQL Error: ' . mysqli_error($con));
+						}
+
+					echo '<table>
+					<thead>
+						<tr>
+							<th>ID PENGGUNA</th>
+							<th>JUMLAH DEBIT</th>
+							<th>JUMLAH TAGIHAN</th>
+							<th>TANGGAL</th>
+						</tr>
+					</thead>
+					<tbody>';
+		
+					while ($row = mysqli_fetch_assoc($query))
+					{
+						echo '<tr>
+							<td>'.$row['id_pengguna'].'</td>
+							<td>'.$row['tgl_transaksi'].'</td>
+							<td>'.number_format($row['jlh_tagihan'], 0, ',', '.').'</td>
+							<td class="right">'.$row['jlh_debit'].'</td>
+						</tr>';
+					}
+					echo '
+					</tbody>
+				</table>';
+				mysqli_free_result($query);
+				mysqli_close($con);
+				?>
+		</div>
+
+</body>
+</html>

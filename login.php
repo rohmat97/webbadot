@@ -15,16 +15,50 @@ $username = $_POST['username'];
 $password = md5($_POST['password']);
 
         $sql="SELECT * FROM tbl_pengguna WHERE BINARY username='".$username."' AND password='".$password."'";
-        $result=mysqli_query($con,$sql);
-        $cek = mysqli_num_rows($result);
+      //  $result=mysqli_query($con,$sql);
+      //  $cek = mysqli_num_rows($result);
 
-
-        if ($cek !=0 )
-          {
+        /*if ($cek !=0 ){
             $_SESSION['username'] = $username;
         header("Location: index.php");
           }else{
             echo "<script type='text/javascript'>alert('login failed! Try Again!')</script>";
+            */
+        $login = mysqli_query($con,$sql);
+// menghitung jumlah data yang ditemukan
+        $cek = mysqli_num_rows($login);
+ 
+// cek apakah username dan password di temukan pada database
+        if($cek > 0){
+         $data = mysqli_fetch_assoc($login);
+ 
+  // cek jika user login sebagai admin
+        if($data['jns_pengguna']=="pertamax"){
+ 
+    // buat session login dan username
+        $_SESSION['username'] = $username;
+        $_SESSION['jns_pengguna'] = "pertamax";
+    // alihkan ke halaman dashboard admin
+    header("location:history.php");
+ 
+  // cek jika user login sebagai pegawai
+      }else if($data['jns_pengguna']=="Pengguna"){
+    // buat session login dan username
+        $_SESSION['username'] = $username;
+        $_SESSION['jns_pengguna'] = "Pengguna";
+    // alihkan ke halaman dashboard pegawai
+    header("location:index.php");
+
+  }else{
+ 
+    // alihkan ke halaman login kembali
+    //header("location:index.php?pesan=gagal");
+  } 
+}else{
+  echo "<script type='text/javascript'>alert('login failed! Try Again!')</script>";
+  //header("location:index.php?pesan=gagal");
+} 
+
             ?>
             <section class="login-block">
     <div class="container">
@@ -60,5 +94,5 @@ $password = md5($_POST['password']);
   </div>
 </div>
 </section>
-<?php }
+<?php 
 ?>

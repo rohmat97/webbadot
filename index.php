@@ -4,7 +4,6 @@ if (!isset($_SESSION['username'])){
 header("Location:login.php");
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,7 +55,7 @@ header("Location:login.php");
   <h1 >Pengukur Debit Air PDAM</h1>
 </div>
 
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark"> <!--head-->
   <a class="navbar-brand" href="index.php">Cek Debit</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
@@ -83,11 +82,41 @@ header("Location:login.php");
   <h2>Cek Debit </h2>
   <hr style="color: white;"><hr style="color: white;">
   <div class="hasil" style="background-color: white; margin-bottom: 20px;">
+             
+                <!--tr>
+                    <th>ID Pengguna : </th>
+                    <th>Nama Pengguna : </th>
+                    <th>Nomor HP : </th>
+                    <th>Nomor Rumah : </th>
+                    <th></th>
+                </tr-->
+                <?php
+             /* $sql = mysqli_query($con,"SELECT * FROM tbl_riwayat where id_riwayat=3");
+              while($row = mysqli_fetch_assoc($sql)){
+                    echo"
+                    <tr>
+                    <td>$row[id_riwayat]</td>
+                        <td>$row[id_pengguna]</td>
+                        <td>$row[id_tagihan]</td>
+                        <td>$row[jlh_debit]</td>
+                        <td>$row[jlh_tagihan]</td>
+                        <td>$row[tanggal]</td>
+                    </tr>
+                    ";*/
+                require 'koneksi.php';
+                $rows = $this->db->query("SELECT * FROM tbl_pengguna where username='".$this->session->id_pengguna."'")->row_array();
+                /*$query = mysqli_query($con, $sql);
+                if (!$query) {
+                  printf("Error: %s\n", mysqli_error($con));
+                  exit();
+                }
+                while($data = mysqli_fetch_array($query)){*/
+                echo "Selamat datang : $rows[username]";
+                 //}
+                ?>
+            
+            
 
-    <script type="text/<?php 
-      echo "Atas Nama :".$row['nama']."<br>";
-       ?>"> 
-     </script>
 
     Generate Debit Air : <strong id="ketinggian_air">Mengambil data...</strong><br>
     <h2>Tabel Debit Harian</h2>

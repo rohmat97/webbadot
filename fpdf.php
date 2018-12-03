@@ -139,7 +139,7 @@ function __construct($orientation='P', $unit='mm', $size='A4')
 		$this->w = $size[0];
 		$this->h = $size[1];
 	}
-	elseif($orientation=='l' || $orientation=='landscape')
+	else if($orientation=='l' || $orientation=='landscape')
 	{
 		$this->DefOrientation = 'L';
 		$this->w = $size[1];
