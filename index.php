@@ -10,7 +10,6 @@ $login = mysqli_query($con,$sql);
 $cek = mysqli_num_rows($login);
 // cek apakah username dan password di temukan pada database
 if($cek > 0){
-
     $data = mysqli_fetch_assoc($login);
     // cek jika user login sebagai admin
     if($data['jns_pengguna']=="pertamax"){
@@ -18,7 +17,7 @@ if($cek > 0){
         $_SESSION['username'] = $username1;
         $_SESSION['jns_pengguna'] = "pertamax";
         // alihkan ke halaman dashboard admin
-        header("location:history.php");
+        header("location:index.php");
         // cek jika user login sebagai pegawai
     }else if($data['jns_pengguna']=="Pengguna"){
         // buat session login dan username
@@ -28,14 +27,14 @@ if($cek > 0){
         header("location:index.php");
 
     }else{
-
+        header("Location:login.php");
         // alihkan ke halaman login kembali
         //header("location:index.php?pesan=gagal");
     }
 }else{
     echo "<script type='text/javascript'>alert('login failed! Try Again!')</script>";
-    //header("location:index.php?pesan=gagal");
-}}elseif (!isset($_SESSION['username'])){
+    header("location:login.php");
+}}elseif(!isset($_SESSION['username'])){
     header("Location:login.php");
 }else{
 

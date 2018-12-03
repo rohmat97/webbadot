@@ -7,58 +7,49 @@
 
 
 
-<?php      
- session_start(); 
-include "koneksi.php";
 
-  $sql = "INSERT INTO tbl_pengguna (username, jns_pengguna, no_rumah, no_hp, password)
-   VALUES ('".$_POST['username']."', '".$_POST['jns_pengguna']."' ,'".$_POST['no_rumah']."' ,'".$_POST['no_hp']."', '".md5($_POST['password'])."')";
-   //$stmt = $db->prepare($sql);
-  // $saved = $stmt->execute($params);
-  $result = mysqli_query($con, $sql);
-  $check = mysqli_num_rows($result);
-  
-  if($check)
-    header('Location:daftar.php');
-  else
-    //echo 'Gagal Tambah Pengguna';
-
-//$username = $_POST['username'];
-//$password = md5($_POST['password']);
-        
-  //      $sql="select * from tbl_pengguna where username = '" . $username . "' and password = '" .$password . "' ";
-    //    $result=mysqli_query($con,$sql);
-      //  $cek = mysqli_num_rows($result);
-
-
-//        if ($cek !=0 )
-  //        {
-    //        $_SESSION['username'] = $username;
-      //  header("Location: index.php");
-        //  }else{
-?>
 
             <section class="login-block">
     <div class="container">
   <div class="row">
     <div class="col-md-4 login-sec">
         <h2 class="text-center">Sign Up</h2>
-<form  action="" class="login-form"  method="post" name="validasi">
+<form  action="updates.php" class="login-form"  method="post" name="update">
   <div class="form-group">
     <label for="exampleInputEmail1" class="text-uppercase">Username</label>
     <input type="text" name="username" class="form-control" required>    
   </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1" class="text-uppercase">Category</label>
-    <input  type="text" name="jns_pengguna" class="form-control" required>
-  </div>
+
+
+    <div class="form-group">
+        <label class="control-label" for="edu">CATEGORY</label>
+        <div class="controls">
+            <?php
+
+
+            $con=mysqli_connect("localhost","root","","db_pdap");
+            $sql = "SELECT category FROM tbl_master";
+            $result = mysqli_query($con,$sql);
+
+            echo "<select name='jns_pengguna'>";
+            while ($row = mysqli_fetch_array($result)) {
+                echo "<option value='" . $row['category'] . "'>" . $row['category'] . "</option>";
+            }
+            echo "</select>";
+            ?>
+            </select>
+        </div>
+
+    </div>
   <div class="form-group">
     <label for="exampleInputPassword1" class="text-uppercase">No Blok Rumah</label>
     <input  type="text" name="no_rumah" class="form-control" required>
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1" class="text-uppercase">No Hp</label>
-    <input  type="text" name="no_hp" class="form-control" required>
+      <div class="controls">
+          <input  name="no_hp" type="tel" pattern="^\d{4}-\d{4}-\d{4}$" class="form-control" placeholder="xxxx-xxxx-xxxx"   required autofocus><span class="error">* <?p echo $hpErr;?></span>
+      </div>
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1" class="text-uppercase">Password</label>
