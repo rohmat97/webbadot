@@ -4,71 +4,15 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 
-
-
-
-<?php      
- session_start(); 
-include "koneksi.php";
-
-$username = $_POST['username'];
-$password = md5($_POST['password']);
-
-        $sql="SELECT * FROM tbl_pengguna WHERE BINARY username='".$username."' AND password='".$password."'";
-      //  $result=mysqli_query($con,$sql);
-      //  $cek = mysqli_num_rows($result);
-
-        /*if ($cek !=0 ){
-            $_SESSION['username'] = $username;
-        header("Location: index.php");
-          }else{
-            echo "<script type='text/javascript'>alert('login failed! Try Again!')</script>";
-            */
-        $login = mysqli_query($con,$sql);
-// menghitung jumlah data yang ditemukan
-        $cek = mysqli_num_rows($login);
- 
-// cek apakah username dan password di temukan pada database
-        if($cek > 0){
-         $data = mysqli_fetch_assoc($login);
- 
-  // cek jika user login sebagai admin
-        if($data['jns_pengguna']=="pertamax"){
- 
-    // buat session login dan username
-        $_SESSION['username'] = $username;
-        $_SESSION['jns_pengguna'] = "pertamax";
-    // alihkan ke halaman dashboard admin
-    header("location:history.php");
- 
-  // cek jika user login sebagai pegawai
-      }else if($data['jns_pengguna']=="Pengguna"){
-    // buat session login dan username
-        $_SESSION['username'] = $username;
-        $_SESSION['jns_pengguna'] = "Pengguna";
-    // alihkan ke halaman dashboard pegawai
-    header("location:index.php");
-
-  }else{
- 
-    // alihkan ke halaman login kembali
-    //header("location:index.php?pesan=gagal");
-  } 
-}else{
-  echo "<script type='text/javascript'>alert('login failed! Try Again!')</script>";
-  //header("location:index.php?pesan=gagal");
-} 
-
-            ?>
-            <section class="login-block">
+    <section class="login-block">
     <div class="container">
   <div class="row">
     <div class="col-md-4 login-sec">
         <h2 class="text-center">Login Now</h2>
-<form  action="" class="login-form"  method="post" name="validasi">
+<form  action="index.php" class="login-form"  method="post" name="validasi">
   <div class="form-group">
     <label for="exampleInputEmail1" class="text-uppercase">Username</label>
-    <input type="text" name="username" class="form-control" required>    
+    <input type="text" name="username" class="form-control" required>
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1" class="text-uppercase">Password</label>
@@ -85,14 +29,12 @@ $password = md5($_POST['password']);
   <br><br>
   <div>Don't have an account?</div>
   <a href="daftar.php">Sign Up</a>
-  
+
 </form>
 <div class="copy-text">Created with <i class="fa fa-heart"></i> by <a href="#">Kelompok 3 TEK A2</a></div>
     </div>
     <div class="col-md-8 banner-sec">
-                  
+
   </div>
 </div>
 </section>
-<?php 
-?>

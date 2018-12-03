@@ -1,9 +1,47 @@
 <?php
+include "koneksi.php";
 session_start();
 if (!isset($_SESSION['username'])){
-header("Location:login.php");
-}
+$username1 = $_POST['username'];
+$password1 = md5($_POST['password']);
+$sql="SELECT * FROM tbl_pengguna WHERE BINARY username='".$username1."' AND password='".$password1."'";
+$login = mysqli_query($con,$sql);
+// menghitung jumlah data yang ditemukan
+$cek = mysqli_num_rows($login);
+// cek apakah username dan password di temukan pada database
+if($cek > 0){
+
+    $data = mysqli_fetch_assoc($login);
+    // cek jika user login sebagai admin
+    if($data['jns_pengguna']=="pertamax"){
+        // buat session login dan username
+        $_SESSION['username'] = $username1;
+        $_SESSION['jns_pengguna'] = "pertamax";
+        // alihkan ke halaman dashboard admin
+        header("location:history.php");
+        // cek jika user login sebagai pegawai
+    }else if($data['jns_pengguna']=="Pengguna"){
+        // buat session login dan username
+        $_SESSION['username'] = $username1;
+        $_SESSION['jns_pengguna'] = "Pengguna";
+        // alihkan ke halaman dashboard pegawai
+        header("location:index.php");
+
+    }else{
+
+        // alihkan ke halaman login kembali
+        //header("location:index.php?pesan=gagal");
+    }
+}else{
+    echo "<script type='text/javascript'>alert('login failed! Try Again!')</script>";
+    //header("location:index.php?pesan=gagal");
+}}elseif (!isset($_SESSION['username'])){
+    header("Location:login.php");
+}else{
+
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,7 +90,10 @@ header("Location:login.php");
 
 <div class="jumbotron text-center" style="margin-bottom:0">
     
-  <h1 >Pengukur Debit Air PDAM</h1>
+  <h1 >Pengukur Debit Air PDAM <br>
+      HI <?php
+
+      echo $_SESSION['username']; ?></h1>
 </div>
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark"> <!--head-->
@@ -104,14 +145,14 @@ header("Location:login.php");
                     </tr>
                     ";*/
                 require 'koneksi.php';
-                $rows = $this->db->query("SELECT * FROM tbl_pengguna where username='".$this->session->id_pengguna."'")->row_array();
+               // $rows = $this->db->query("SELECT * FROM tbl_pengguna where username='".$this->session->id_pengguna."'")->row_array();
                 /*$query = mysqli_query($con, $sql);
                 if (!$query) {
                   printf("Error: %s\n", mysqli_error($con));
                   exit();
                 }
                 while($data = mysqli_fetch_array($query)){*/
-                echo "Selamat datang : $rows[username]";
+           //     echo "Selamat datang : $rows[username]";
                  //}
                 ?>
             
@@ -143,3 +184,5 @@ header("Location:login.php");
 
 </body>
 </html>
+<?php
+} ?>
