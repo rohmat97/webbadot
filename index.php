@@ -32,13 +32,23 @@ if($cek > 0){
         //header("location:index.php?pesan=gagal");
     }
 }else{
-  for($i=0;$i<=10;$i++){
-    echo "<script type='text/javascript'>alert('login failed! Try Again!')</script>";
-    if ($i==10) {
-      # code...
-      header("location:login.php");
-    }
-    }
+    ?>
+    <html>
+<head>
+    <title>Redirecting...</title>
+    <meta http-equiv="refresh"
+content="10;URL=http://localhost/webbadot/login.php">
+</head>
+<body>
+    You are being automatically redirected to a new location.<br />
+    If your browser does not redirect you in 10 seconds, or you do
+    not wish to wait, <a href="login.php">click here</a>.
+</body>
+</html>
+    <?php
+
+
+
 }}elseif(!isset($_SESSION['username'])){
     header("Location:login.php");
 }else{
