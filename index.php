@@ -5,7 +5,7 @@ if (!isset($_SESSION['username'])){
 $username1 = $_POST['username'];
 $password1 = md5($_POST['password']);
 $sql="SELECT * FROM tbl_pengguna WHERE BINARY username='".$username1."' AND password='".$password1."'";
-$login = mysqli_query($con,$sql);
+$login = mysqli_query($conn,$sql);
 // menghitung jumlah data yang ditemukan
 $cek = mysqli_num_rows($login);
 // cek apakah username dan password di temukan pada database

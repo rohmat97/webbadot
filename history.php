@@ -42,50 +42,48 @@ $(document).ready(function() {
          },
               series:             
             [
-<?php         
-include "koneksi.php";
-  
-  $sql_jumlah   = "SELECT *from tbl_riwayat where id_riwayat =3 ORDER BY id_riwayat ";        
-  $query_jumlah = mysqli_query( $con,$sql_jumlah ) ;
- 
-while( $data = mysqli_fetch_array( $query_jumlah ) ){
-   $tanggal= date($data['tanggal']);
-     $jumlahx = $data['jlh_tagihan'];
-     $tanggal= date("Y:F", strtotime($tanggal));                     
-    }             
-    
-    ?>
-    {
-      name: '<?php echo $tanggal; ?>',
-      data: [<?php echo $jumlahx; ?>]
-    },
- 
-]
-});
-}); 
+ <?php
+                $user= $_SESSION['username'];
+                //MASUK KE TBL PENGGUNA
+                $sql1 = mysqli_query($con,"SELECT * FROM tbl_pengguna where username='$user'");
+                $row = mysqli_fetch_assoc($sql1);
+                $user21= $row['id_pengguna'];
+                $user22= $row['jns_pengguna'];
+                //MASUK KE TBL RIWAYAT
+                $sql2 = mysqli_query($con,"SELECT * FROM tbl_riwayat where id_pengguna='$user21'");
+                $row = mysqli_fetch_assoc($sql2);
+                $user3=$row['id_riwayat'];
+                // MASUK KE RIWAYAT
+                if($user22=="Pengguna"){
+                    $sql = mysqli_query($con,"SELECT * FROM riwayat where id_riwayat='$user3'");
+                }else{
+
+                    $sql = mysqli_query($con,"SELECT * FROM riwayat ");
+                }
+
+                $no=1;
+
+              while($row = mysqli_fetch_assoc($sql)){
+                    echo"
+                    <tr>
+                    <td>$no</td>
+                    <td>$row[id_riwayat]</td>
+                        <td>$row[ketinggian_air]</td>
+                        <td>$row[status]</td>
+                        <td>$row[status1]</td>
+                        <td>$row[status2]</td>
+                        <td>$row[waktu]</td>
+                    </tr>
+                    ";
+                  $no=$no+1;
+                }
+                
+                ?> 
 </script>
 
 <script>
 window.onload = function () {
- <?php
 
-  $sql_jumlah   = "SELECT *from tbl_riwayat where id_pengguna =2 ORDER BY id_pengguna ";        
-  $query_jumlah = mysqli_query($con,$sql_jumlah ) ;
-  $x=0;
-  $data = mysqli_fetch_array( $query_jumlah ) ;
-  while (  $data = mysqli_fetch_array( $query_jumlah )   ) {
-  $tanggal=$data['tanggal'];
-  $jumlahx = $data['jlh_tagihan'];
-  $jumlaht +=$jumlahx;
-  $tanggal= date("Y:F", strtotime($tanggal));   
-  }
- 
-
-  
-
-
-  
-?>
 var chart = new CanvasJS.Chart("chartContainer", {
   animationEnabled: true,
   exportEnabled: true,
