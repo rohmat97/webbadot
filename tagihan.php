@@ -3,8 +3,9 @@ session_start();
 if (!isset($_SESSION['username'])){
 header("Location:login.php");
 }
-
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -64,23 +65,19 @@ header("Location:login.php");
   <h2>Tagihan PDAM </h2>
   <br>
   <h3>Pilih periode Tagihan:</h3>
-  <br>
-  <input type="radio" name="tipe" value="hari" checked>Hari        
-  <input type="radio" name="tipe" value="hari" > Minggu        
-  <input type="radio" name="tipe" value="hari" > Bulan       
-  <br>
-  <br>
-  <button style="background-color: grey; margin: center;">OK</button>
+  <br>           
+  <button name="tagihan" value="tagihan_hari" onclick="window.location='tagihan-hari.php';">Hari</button>
+  <button name="tagihan" value="tagihan_minggu" onclick="window.location='tagihan-minggu.php';">Minggu</button>
+  <button name="tagihan" value="tagihan_bulan" onclick="window.location='tagihan-bulan.php';">Bulan</button>  
   <br><br>
   <hr><hr>
-  <div class="hasil" style="background-color: white; margin-bottom: 30px;">
-  <p style="text-align: left">Jumlah Tagihan anda selama </p>
-  <p style="text-align: left">sebesar</p>
       </div></div>
      </div>
      <div>
+     
   </div>
   </div>
+ 
 </div>
 </div>
 <div class="jumbotron text-center bg-dark navbar-dark" style="margin-bottom:0">

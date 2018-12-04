@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 16, 2018 at 12:27 PM
+-- Generation Time: Dec 04, 2018 at 06:34 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.11
 
@@ -25,60 +25,182 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tblcekdebit`
+-- Table structure for table `ambang_batas`
 --
 
-CREATE TABLE `tblcekdebit` (
-  `id_pengguna` varchar(8) NOT NULL,
-  `jDebit` int(11) NOT NULL,
-  `jTagihan` int(11) NOT NULL
+CREATE TABLE `ambang_batas` (
+  `id_ambang_batas` int(11) NOT NULL,
+  `ketinggian_air` varchar(10) NOT NULL,
+  `status` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tblpengguna`
+-- Table structure for table `riwayat`
 --
 
-CREATE TABLE `tblpengguna` (
-  `id_pengguna` varchar(8) NOT NULL,
-  `jPengguna` varchar(30) NOT NULL,
-  `password` text NOT NULL
+CREATE TABLE `riwayat` (
+  `id_riwayat` int(11) NOT NULL,
+  `ketinggian_air` int(11) NOT NULL,
+  `status` varchar(30) NOT NULL,
+  `status1` varchar(30) NOT NULL,
+  `status2` varchar(30) NOT NULL,
+  `waktu` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tblriwayat`
+-- Table structure for table `tbl_cekdebit`
 --
 
-CREATE TABLE `tblriwayat` (
-  `id_pengguna` varchar(8) NOT NULL,
-  `jDebit` int(11) NOT NULL,
-  `jTagihan` int(11) NOT NULL
+CREATE TABLE `tbl_cekdebit` (
+  `id_tagihan` int(6) NOT NULL,
+  `id_pengguna` int(6) NOT NULL,
+  `jlh_debit` int(20) NOT NULL,
+  `jlh_tagihan` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_cekdebit`
+--
+
+INSERT INTO `tbl_cekdebit` (`id_tagihan`, `id_pengguna`, `jlh_debit`, `jlh_tagihan`) VALUES
+(1, 1, 600, 60000),
+(2, 1, 50000, 600),
+(3, 1, 1600, 160000);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_pengguna`
+--
+
+CREATE TABLE `tbl_pengguna` (
+  `id_pengguna` int(6) NOT NULL,
+  `jns_pengguna` text,
+  `username` varchar(20) NOT NULL,
+  `password` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_pengguna`
+--
+
+INSERT INTO `tbl_pengguna` (`id_pengguna`, `jns_pengguna`, `username`, `password`) VALUES
+(1, 'pertamax', 'admon', 'a2960f70941d29b6123e6ebe493f38d2');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_riwayat`
+--
+
+CREATE TABLE `tbl_riwayat` (
+  `id_riwayat` int(6) NOT NULL,
+  `id_pengguna` int(6) NOT NULL,
+  `id_tagihan` int(6) NOT NULL,
+  `jlh_debit` int(20) NOT NULL,
+  `jlh_tagihan` int(20) NOT NULL,
+  `tanggal` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_riwayat`
+--
+
+INSERT INTO `tbl_riwayat` (`id_riwayat`, `id_pengguna`, `id_tagihan`, `jlh_debit`, `jlh_tagihan`, `tanggal`) VALUES
+(3, 1, 1, 600, 50000, '2018-11-20 09:42:08'),
+(4, 1, 2, 50000, 600, '2018-10-14 08:18:00');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `tblcekdebit`
+-- Indexes for table `ambang_batas`
 --
-ALTER TABLE `tblcekdebit`
+ALTER TABLE `ambang_batas`
+  ADD PRIMARY KEY (`id_ambang_batas`);
+
+--
+-- Indexes for table `riwayat`
+--
+ALTER TABLE `riwayat`
+  ADD PRIMARY KEY (`id_riwayat`);
+
+--
+-- Indexes for table `tbl_cekdebit`
+--
+ALTER TABLE `tbl_cekdebit`
+  ADD PRIMARY KEY (`id_tagihan`),
+  ADD KEY `id_pengguna` (`id_pengguna`);
+
+--
+-- Indexes for table `tbl_pengguna`
+--
+ALTER TABLE `tbl_pengguna`
   ADD PRIMARY KEY (`id_pengguna`);
 
 --
--- Indexes for table `tblpengguna`
+-- Indexes for table `tbl_riwayat`
 --
-ALTER TABLE `tblpengguna`
-  ADD PRIMARY KEY (`id_pengguna`);
+ALTER TABLE `tbl_riwayat`
+  ADD PRIMARY KEY (`id_riwayat`),
+  ADD KEY `id_pengguna` (`id_pengguna`),
+  ADD KEY `id_tagihan` (`id_tagihan`);
 
 --
--- Indexes for table `tblriwayat`
+-- AUTO_INCREMENT for dumped tables
 --
-ALTER TABLE `tblriwayat`
-  ADD PRIMARY KEY (`id_pengguna`);
+
+--
+-- AUTO_INCREMENT for table `ambang_batas`
+--
+ALTER TABLE `ambang_batas`
+  MODIFY `id_ambang_batas` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `riwayat`
+--
+ALTER TABLE `riwayat`
+  MODIFY `id_riwayat` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tbl_cekdebit`
+--
+ALTER TABLE `tbl_cekdebit`
+  MODIFY `id_tagihan` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `tbl_pengguna`
+--
+ALTER TABLE `tbl_pengguna`
+  MODIFY `id_pengguna` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `tbl_riwayat`
+--
+ALTER TABLE `tbl_riwayat`
+  MODIFY `id_riwayat` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `tbl_cekdebit`
+--
+ALTER TABLE `tbl_cekdebit`
+  ADD CONSTRAINT `tbl_cekdebit_ibfk_1` FOREIGN KEY (`id_pengguna`) REFERENCES `tbl_pengguna` (`id_pengguna`);
+
+--
+-- Constraints for table `tbl_riwayat`
+--
+ALTER TABLE `tbl_riwayat`
+  ADD CONSTRAINT `tbl_riwayat_ibfk_1` FOREIGN KEY (`id_pengguna`) REFERENCES `tbl_pengguna` (`id_pengguna`),
+  ADD CONSTRAINT `tbl_riwayat_ibfk_2` FOREIGN KEY (`id_tagihan`) REFERENCES `tbl_cekdebit` (`id_tagihan`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

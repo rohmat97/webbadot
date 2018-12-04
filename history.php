@@ -12,8 +12,6 @@ header("Location:login.php");
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-  <script src="js/jquery.js"></script>
-  <script type="text/javascript" src="chart.js/Chart.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
@@ -22,7 +20,8 @@ header("Location:login.php");
 <script src="http://code.highcharts.com/highcharts.js"></script>
 <script src="http://code.highcharts.com/modules/exporting.js"></script>
 
-<!--script type="text/javascript">
+
+<script type="text/javascript">
   var chart1; // globally available
 $(document).ready(function() {
       chart1 = new Highcharts.Chart({
@@ -46,17 +45,16 @@ $(document).ready(function() {
 <?php         
 include "koneksi.php";
   
-  $sql_jumlah   = mysqli_query($con,"SELECT id_riwayat FROM tbl_riwayat");        
-  $query_jumlah = mysqli_query( $con,"SELECT jlh_tagihan FROM tbl_riwayat") ;
+  $sql_jumlah   = "SELECT *from tbl_riwayat where id_riwayat =3 ORDER BY id_riwayat ";        
+  $query_jumlah = mysqli_query( $con,$sql_jumlah ) ;
  
-/*while( $data = mysqli_fetch_array( $query_jumlah ) ){
+while( $data = mysqli_fetch_array( $query_jumlah ) ){
    $tanggal= date($data['tanggal']);
      $jumlahx = $data['jlh_tagihan'];
      $tanggal= date("Y:F", strtotime($tanggal));                     
     }             
-    */
+    
     ?>
-   
     {
       name: '<?php echo $tanggal; ?>',
       data: [<?php echo $jumlahx; ?>]
@@ -65,8 +63,56 @@ include "koneksi.php";
 ]
 });
 }); 
-</script-->
+</script>
 
+<script>
+window.onload = function () {
+ <?php
+
+  $sql_jumlah   = "SELECT *from tbl_riwayat where id_pengguna =2 ORDER BY id_pengguna ";        
+  $query_jumlah = mysqli_query($con,$sql_jumlah ) ;
+  $x=0;
+  $data = mysqli_fetch_array( $query_jumlah ) ;
+  while (  $data = mysqli_fetch_array( $query_jumlah )   ) {
+  $tanggal=$data['tanggal'];
+  $jumlahx = $data['jlh_tagihan'];
+  $jumlaht +=$jumlahx;
+  $tanggal= date("Y:F", strtotime($tanggal));   
+  }
+ 
+
+  
+
+
+  
+?>
+var chart = new CanvasJS.Chart("chartContainer", {
+  animationEnabled: true,
+  exportEnabled: true,
+  title:{
+    text: "Data PDAP"
+  },
+  subtitles: [{
+    text: "Currency Used: RUPIAH (RP)"
+  }],
+  data: [{
+    type: "pie",
+    showInLegend: "true",
+    legendText: "{label}",
+    indexLabelFontSize: 16,
+    indexLabel: "{label} - ",
+    yValueFormatString: "฿#,##0",
+    dataPoints: <?php echo json_encode( $dataPoints = array( 
+    array("label"=>"$tanggal", "y"=>$jumlahx/$jumlahx*2),
+    array("label"=>"$tanggal+1", "y"=>12.55),
+    array("label"=>"$tanggal+2", "y"=>8.47),
+    ), JSON_NUMERIC_CHECK); ?>
+  }]
+});
+chart.render();
+ 
+}
+</script>
   <style>
   .fakeimg {
       height: auto;
@@ -86,17 +132,13 @@ include "koneksi.php";
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav">
-      <li class="nav-item">
-  <!--a class="nav-link" href="index.php">Cek Debit</a-->
-</li>
+      
   <!--button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
   </button>-->
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <!--ul class="navbar-nav"-->
-      <li class="nav-item">
-        <!--a class="nav-link" href="tagihan.php">Tagihan</a-->
-      </li>
+      
       <li class="nav-item">
         <a class="navbar-brand" href="riwayat.php">Riwayat</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -125,12 +167,15 @@ include "koneksi.php";
       </div>
       <ul class="nav nav-pills flex-column" align="center">
         <li class="nav-item">
+          <!--a class="nav-link active" href="#">Call</a-->
           <p></p>
         </li>
         <li class="nav-item" >
+          <!--a class="nav-link active" href="#">Message</a-->
           <p></p>
         </li>
         <li class="nav-item">
+          <!--a class="nav-link active" href="#">Report</a-->
           <p></p>
         </li>
       </ul>
@@ -147,7 +192,7 @@ Generate PDF</button>
         <br>
         <br>
         <p><a href="export.php" style="margin-top: 10px;"><button>Export Data ke Excel</button></a></p>
-        <p><a href="import.php"><button>import Data dari Excel</button></a></p>
+<p><a href="import.php"><button>import Data dari Excel</button></a></p>
 
         </div>
             <thead>
@@ -155,7 +200,7 @@ Generate PDF</button>
                     <th>ID Riwayat</th>
                     <th>ID Pengguna</th>
                     <th>ID Tagihan</th>
-                    <th>Jumlah Debit</th>
+                    <th>jumlah Debit</th>
                     <th>Jumlah tagihan</th>
                     <th>Tanggal</th>
                     <th></th>
@@ -163,43 +208,61 @@ Generate PDF</button>
             </thead>
             <tbody>
                 <?php
-             /* $sql = mysqli_query($con,"SELECT * FROM tbl_riwayat where id_riwayat=3");
+                $user= $_SESSION['username'];
+                //MASUK KE TBL PENGGUNA
+                $sql1 = mysqli_query($con,"SELECT * FROM tbl_pengguna where username='$user'");
+                $row = mysqli_fetch_assoc($sql1);
+                $user21= $row['id_pengguna'];
+                $user22= $row['jns_pengguna'];
+                //MASUK KE TBL RIWAYAT
+                $sql2 = mysqli_query($con,"SELECT * FROM tbl_riwayat where id_pengguna='$user21'");
+                $row = mysqli_fetch_assoc($sql2);
+                $user3=$row['id_riwayat'];
+                // MASUK KE RIWAYAT
+                if($user22=="Pengguna"){
+                    $sql = mysqli_query($con,"SELECT * FROM riwayat where id_riwayat='$user3'");
+                }else{
+
+                    $sql = mysqli_query($con,"SELECT * FROM riwayat ");
+                }
+
+                $no=1;
+
               while($row = mysqli_fetch_assoc($sql)){
                     echo"
                     <tr>
+                    <td>$no</td>
                     <td>$row[id_riwayat]</td>
-                        <td>$row[id_pengguna]</td>
-                        <td>$row[id_tagihan]</td>
-                        <td>$row[jlh_debit]</td>
-                        <td>$row[jlh_tagihan]</td>
-                        <td>$row[tanggal]</td>
+                        <td>$row[ketinggian_air]</td>
+                        <td>$row[status]</td>
+                        <td>$row[status1]</td>
+                        <td>$row[status2]</td>
+                        <td>$row[waktu]</td>
                     </tr>
-                    ";*/
-                require 'koneksi.php';
-                $id_riwayat=0;
-                $sql = "SELECT * FROM tbl_riwayat";
-                $query = mysqli_query($con, $sql);
-                if (!$query) {
-                  printf("Error: %s\n", mysqli_error($con));
-                  exit();
+                    ";
+                  $no=$no+1;
                 }
-                while($data = mysqli_fetch_array($query)){
-                $id_riwayat++;
-                echo "<tr>";
-                echo "<td>".$id_riwayat."</td>";
-                echo "<td>".$data['id_pengguna']."</td>";
-                echo "<td>".$data['id_tagihan']."</td>";
-                echo "<td>".$data['jlh_debit']."</td>";
-                echo "<td>".$data['jlh_tagihan']."</td>";
-                echo "<td>".$data['tanggal']."</td>";
-        
-                echo "</tr>";
-                 }
+                
                 ?>
             
             </tbody>
 
             </table>
+     
+            <div id="container" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+            <div id="chartContainer" style="height: 400px; min-width: 80%;"></div>
+
+
+      </div>
+     </div>
+     <div>
+  </div>
+  </div>
+</div>
+</div>
+<div class="jumbotron text-center bg-dark navbar-dark" style="margin-bottom:0">
+<font color="white">Copyright &copy; Kelompok 3 TEK A2 2018</font>
+</div>
             <?php
             require 'koneksi.php';
             $id_riwayat   = mysqli_query($con,"SELECT id_riwayat FROM tbl_riwayat");         

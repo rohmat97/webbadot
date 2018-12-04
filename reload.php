@@ -7,12 +7,22 @@
 	
 	$result = mysqli_query($conn, $sql);
 	
-	$status = '';
+	$status = $_POST['ketinggian_air'] * 5;			//harian
+	$status1 = $_POST['ketinggian_air'] * 5 * 7;  //mingguan
+	$status2 = $_POST['ketinggian_air'] * 5 * 30; //bulanan
 
 	$i = 1;
+
+	$sql = "INSERT INTO status WHERE ketinggian_air * 5";
+	$sql = "INSERT INTO status1 WHERE ketinggian_air * 5 * 7";
+	$sql = "INSERT INTO status2 WHERE ketinggian_air * 5 * 30";
 	
 	while ($row = mysqli_fetch_assoc($result)) {
 		if (eval('return '.$ketinggian_air.$row['ketinggian_air'].';')) {
+			$status = $row['status'];
+			$status1 = $row['status1'];
+			$status2 = $row['status2'];
+			
 				break;
 		}
 	}
@@ -23,17 +33,25 @@
 	
 	$riwayat = '<table border="1" rules="all" cellpadding="5">
 				<tr style="background-color: #dfdfdf;">
-					<th>#</th>
+					<th>ID Debit</th>
 					<th>Debit Air</th>
+					<th>Jumlah Tagihan</th>
 					<th>Waktu</th>
 				</tr>';
 	
 	while ($row = mysqli_fetch_assoc($result)) {
 		$riwayat .= '<tr>
 					<td>'.($i++).'</td>
-					<td>'.$row['ketinggian_air'].'</td>
+					<td>'.$row['ketinggian_air'].' liter/menit</td>
+					<td>Rp. '.number_format($row['status'] , 0, ',', '.').'</td>
 					<td>'.$row['waktu'].'</td>
+					
+					
 				</tr>';
+				if ($i == 21){
+					break;
+				}
+				
 		
 		
 	}
@@ -45,14 +63,20 @@
 	
 	$riwayat .= '</table>';
 	
-	$sql = "INSERT INTO riwayat (ketinggian_air, waktu) 
+	$sql = "INSERT INTO riwayat (ketinggian_air, status, status1, status2, waktu) 
 			VALUES ('".$ketinggian_air."',
+					'".$status."',
+					'".$status1."',
+					'".$status2."',
 			'".date('Y-m-d h:i:s')."')";
 	
 	$result = mysqli_query($conn, $sql);
 	
 	$response = array(
 					'ketinggian_air' => $ketinggian_air,
+					'status' => $status,
+					'status1' => $status1,
+					'status2' => $status2,
 					'riwayat' => $riwayat
 				);
 	

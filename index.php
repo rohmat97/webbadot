@@ -17,7 +17,7 @@ if($cek > 0){
         $_SESSION['username'] = $username1;
         $_SESSION['jns_pengguna'] = "pertamax";
         // alihkan ke halaman dashboard admin
-        header("location:index.php");
+        header("location:history.php");
         // cek jika user login sebagai pegawai
     }else if($data['jns_pengguna']=="Pengguna"){
         // buat session login dan username
@@ -108,7 +108,7 @@ content="10;URL=http://localhost/webbadot/login.php">
 </div>
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark"> <!--head-->
-  <a class="navbar-brand" href="index.php">Cek Debit</a>
+  <a class="navbar-brand" href="index2.php">Cek Debit</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -137,7 +137,7 @@ content="10;URL=http://localhost/webbadot/login.php">
              
   <h4> <?php
       echo "<br>";
-      echo "Nama Pengguna : ";
+      echo "Selamat Datang, ";
       echo $_SESSION['username']; 
       echo "<br><br>";
       ?>
@@ -146,19 +146,20 @@ content="10;URL=http://localhost/webbadot/login.php">
 
 
     Generate Debit Air : <strong id="ketinggian_air">Mengambil data...</strong><br>
-    <h2>Tabel Debit Harian</h2>
-    <div id="riwayat">
-      <table border="1" rules="all" cellpadding="5">
-        <tr style="background-color: #dfdfdf;">
-          <th>ID Debit</th>
-          <th>Debit Air</th>
-          <th>Tanggal</th>
-        </tr>
-        <tr>
-          <td colspan="4">Mengambil data...</td>
-        </tr>
-      </table>
-    </div>
+		<h2>Tabel Debit Harian</h2>
+		<div id="riwayat" style="overflow:auto; width:100%px; height:200px; padding:10px; border:1px solid white">
+			<table border="1" rules="all" cellpadding="5">
+				<tr style="background-color: #dfdfdf;">
+					<th>ID Debit</th>
+					<th>Debit Air</th>
+          <th>Jumlah Tagihan</th>
+					<th>Tanggal</th>
+				</tr>
+				<tr>
+					<td colspan="4">Mengambil data...</td>
+				</tr>
+			</table>
+		</div>
 </div></div>
 
 
