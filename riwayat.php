@@ -212,18 +212,28 @@ Generate PDF</button>
             </thead>
             <tbody>
                 <?php
-              $sql = mysqli_query($con,"SELECT * FROM tbl_riwayat where id_riwayat=3");
+                $user= $_SESSION['username'];
+                $sql1 = mysqli_query($con,"SELECT id_pengguna FROM tbl_pengguna where username='$user'");
+              $row = mysqli_fetch_assoc($sql1);
+                $user2= $row['id_pengguna'];
+                $sql2 = mysqli_query($con,"SELECT * FROM tbl_riwayat where id_pengguna='$user2'");
+                $row = mysqli_fetch_assoc($sql2);
+                $user3=$row['id_riwayat'];
+                $sql = mysqli_query($con,"SELECT * FROM riwayat where id_riwayat='$user3'");
+                $no=1;
               while($row = mysqli_fetch_assoc($sql)){
                     echo"
                     <tr>
+                    <td>$no</td>
                     <td>$row[id_riwayat]</td>
-                        <td>$row[id_pengguna]</td>
-                        <td>$row[id_tagihan]</td>
-                        <td>$row[jlh_debit]</td>
-                        <td>$row[jlh_tagihan]</td>
-                        <td>$row[tanggal]</td>
+                        <td>$row[ketinggian_air]</td>
+                        <td>$row[status]</td>
+                        <td>$row[status1]</td>
+                        <td>$row[status2]</td>
+                        <td>$row[waktu]</td>
                     </tr>
                     ";
+                  $no=$no+1;
                 }
                 
                 ?>
