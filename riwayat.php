@@ -214,20 +214,20 @@ Generate PDF</button>
                 <?php
                 $user= $_SESSION['username'];
                 //MASUK KE TBL PENGGUNA
-                $sql1 = mysqli_query($con,"SELECT * FROM tbl_pengguna where username='$user'");
+                $sql1 = mysqli_query($conn,"SELECT * FROM tbl_pengguna where username='$user'");
                 $row = mysqli_fetch_assoc($sql1);
                 $user21= $row['id_pengguna'];
                 $user22= $row['jns_pengguna'];
                 //MASUK KE TBL RIWAYAT
-                $sql2 = mysqli_query($con,"SELECT * FROM tbl_riwayat where id_pengguna='$user21'");
+                $sql2 = mysqli_query($conn,"SELECT * FROM tbl_riwayat where id_pengguna='$user21'");
                 $row = mysqli_fetch_assoc($sql2);
                 $user3=$row['id_riwayat'];
                 // MASUK KE RIWAYAT
                 if($user22=="Pengguna"){
-                    $sql = mysqli_query($con,"SELECT * FROM riwayat where id_riwayat='$user3'");
+                    $sql = mysqli_query($conn,"SELECT * FROM riwayat where id_riwayat='$user3'");
                 }else{
 
-                    $sql = mysqli_query($con,"SELECT * FROM riwayat ");
+                    $sql = mysqli_query($conn,"SELECT * FROM riwayat ");
                 }
 
                 $no=1;

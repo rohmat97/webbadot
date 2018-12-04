@@ -4,7 +4,7 @@
 	$password = '';
 	$db_name = 'db_pdap';
 
-	$con = mysqli_connect($host, $username, $password, $db_name);
+	$conn = mysqli_connect($host, $username, $password, $db_name);
 	//$data=mysqli_select_db("db_pdap") or die (mysqli_error());
 
 	/*Class dbObj{
