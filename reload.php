@@ -62,9 +62,14 @@
 				</tr>';
 	
 	$riwayat .= '</table>';
-	
-	$sql = "INSERT INTO riwayat (ketinggian_air, status, status1, status2, waktu) 
-			VALUES ('".$ketinggian_air."',
+$user= $_SESSION['username'];
+//MASUK KE TBL PENGGUNA
+$sql1 = mysqli_query($con,"SELECT * FROM tbl_pengguna where username='$user'");
+$row = mysqli_fetch_assoc($sql1);
+$user21= $row['id_pengguna'];
+	$sql = "INSERT INTO riwayat (id_pengguna,ketinggian_air, status, status1, status2, waktu) 
+			VALUES ('".$user21."',
+			'".$ketinggian_air."',
 					'".$status."',
 					'".$status1."',
 					'".$status2."',
@@ -73,6 +78,7 @@
 	$result = mysqli_query($conn, $sql);
 	
 	$response = array(
+                     'id_pengguna' => id_pengguna,
 					'ketinggian_air' => $ketinggian_air,
 					'status' => $status,
 					'status1' => $status1,
