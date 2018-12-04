@@ -32,8 +32,13 @@ if($cek > 0){
         //header("location:index.php?pesan=gagal");
     }
 }else{
+  for($i=0;$i<=10;$i++){
     echo "<script type='text/javascript'>alert('login failed! Try Again!')</script>";
-    header("location:login.php");
+    if ($i==10) {
+      # code...
+      header("location:login.php");
+    }
+    }
 }}elseif(!isset($_SESSION['username'])){
     header("Location:login.php");
 }else{
@@ -89,10 +94,7 @@ if($cek > 0){
 
 <div class="jumbotron text-center" style="margin-bottom:0">
     
-  <h1 >Pengukur Debit Air PDAM <br>
-      HI <?php
-
-      echo $_SESSION['username']; ?></h1>
+  <h1 >Pengukur Debit Air PDAM <br></h1>
 </div>
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark"> <!--head-->
@@ -123,39 +125,14 @@ if($cek > 0){
   <hr style="color: white;"><hr style="color: white;">
   <div class="hasil" style="background-color: white; margin-bottom: 20px;">
              
-                <!--tr>
-                    <th>ID Pengguna : </th>
-                    <th>Nama Pengguna : </th>
-                    <th>Nomor HP : </th>
-                    <th>Nomor Rumah : </th>
-                    <th></th>
-                </tr-->
-                <?php
-             /* $sql = mysqli_query($con,"SELECT * FROM tbl_riwayat where id_riwayat=3");
-              while($row = mysqli_fetch_assoc($sql)){
-                    echo"
-                    <tr>
-                    <td>$row[id_riwayat]</td>
-                        <td>$row[id_pengguna]</td>
-                        <td>$row[id_tagihan]</td>
-                        <td>$row[jlh_debit]</td>
-                        <td>$row[jlh_tagihan]</td>
-                        <td>$row[tanggal]</td>
-                    </tr>
-                    ";*/
-                require 'koneksi.php';
-               // $rows = $this->db->query("SELECT * FROM tbl_pengguna where username='".$this->session->id_pengguna."'")->row_array();
-                /*$query = mysqli_query($con, $sql);
-                if (!$query) {
-                  printf("Error: %s\n", mysqli_error($con));
-                  exit();
-                }
-                while($data = mysqli_fetch_array($query)){*/
-           //     echo "Selamat datang : $rows[username]";
-                 //}
-                ?>
+  <h4> <?php
+      echo "<br>";
+      echo "Nama Pengguna : ";
+      echo $_SESSION['username']; 
+      echo "<br><br>";
+      ?>
             
-            
+  </h4>       
 
 
     Generate Debit Air : <strong id="ketinggian_air">Mengambil data...</strong><br>

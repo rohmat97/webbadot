@@ -5,20 +5,16 @@
 <!------ Include the above in your HEAD tag ---------->
 
 
-
-
-
-
-            <section class="login-block">
+<section class="login-block">
     <div class="container">
-  <div class="row">
+    <div class="row">
     <div class="col-md-4 login-sec">
         <h2 class="text-center">Sign Up</h2>
 <form  action="updates.php" class="login-form"  method="post" name="update">
-  <div class="form-group">
+    <div class="form-group">
     <label for="exampleInputEmail1" class="text-uppercase">Username</label>
     <input type="text" name="username" class="form-control" required>    
-  </div>
+    </div>
 
 
     <div class="form-group">

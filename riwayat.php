@@ -20,6 +20,7 @@ header("Location:login.php");
 <script src="http://code.highcharts.com/highcharts.js"></script>
 <script src="http://code.highcharts.com/modules/exporting.js"></script>
 
+
 <script type="text/javascript">
   var chart1; // globally available
 $(document).ready(function() {
