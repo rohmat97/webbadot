@@ -71,9 +71,10 @@ if (!isset($_SESSION['username'])){
 	$riwayat .= '</table>';
 $user= $_SESSION['username'];
 //MASUK KE TBL PENGGUNA
-$sql1 = mysqli_query($con,"SELECT * FROM tbl_pengguna where username='$user'");
+$sql1 = mysqli_query($conn,"SELECT * FROM tbl_pengguna where username='$user'");
 $row = mysqli_fetch_assoc($sql1);
 $user21= $row['id_pengguna'];
+
 	$sql = "INSERT INTO riwayat (id_pengguna,ketinggian_air, status, status1, status2, waktu) 
 			VALUES ('".$user21."',
 			'".$ketinggian_air."',
