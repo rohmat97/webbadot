@@ -78,7 +78,6 @@ $user21= $row['id_pengguna'];
 	$result = mysqli_query($conn, $sql);
 	
 	$response = array(
-                     'id_pengguna' => id_pengguna,
 					'ketinggian_air' => $ketinggian_air,
 					'status' => $status,
 					'status1' => $status1,
