@@ -45,7 +45,7 @@ $(document).ready(function() {
 <?php         
 include "koneksi.php";
   
-  $sql_jumlah   = "SELECT *from riwayat where id_riwayat =3 ORDER BY id_riwayat ";        
+  $sql_jumlah   = "SELECT *from tbl_riwayat where id_riwayat =3 ORDER BY id_riwayat ";        
   $query_jumlah = mysqli_query( $con,$sql_jumlah ) ;
  
 while( $data = mysqli_fetch_array( $query_jumlah ) ){
